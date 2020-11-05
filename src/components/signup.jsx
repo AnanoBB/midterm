@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { withFirebase } from "./Firebase";
-
 class Signup extends Component {
   state = { email: "", password: "" };
-  handleSignup = e => {
+  handleSignup = (e) => {
     let { email, password } = this.state;
     e.preventDefault();
     if (email.length < 4) {
@@ -15,25 +13,21 @@ class Signup extends Component {
       alert("Password must be atleast 6 characters");
       return;
     }
-    this.props.firebase
-      .doCreateUserWithEmailPassword(email, password)
-      .then(() => {
-        this.props.onSignup({ email });
-        this.props.history.push({
-          pathname: "/",
-          state: { email }
-        });
-      })
-      .catch(e => {
-        alert("Failed: " + e.message);
-      });
+
+    localStorage.setItem("email", email);
+
+    this.props.onSignup({ email });
+    this.props.history.push({
+      pathname: "/",
+      state: { email }
+    });
   };
 
-  handelEmailChange = e => {
+  handelEmailChange = (e) => {
     this.setState({ ...this.state, email: e.target.value });
   };
 
-  handlePasswordChange = e => {
+  handlePasswordChange = (e) => {
     this.setState({ ...this.state, password: e.target.value });
   };
 
@@ -71,4 +65,4 @@ class Signup extends Component {
   }
 }
 
-export default withRouter(withFirebase(Signup));
+export default withRouter(Signup);
