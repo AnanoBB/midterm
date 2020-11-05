@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { withFirebase } from "./Firebase";
-import DB from "../mock/fakeDb";
+
 class Signup extends Component {
   state = { email: "", password: "" };
   handleSignup = e => {
